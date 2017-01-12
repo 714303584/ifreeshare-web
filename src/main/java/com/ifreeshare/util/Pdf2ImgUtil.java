@@ -18,10 +18,6 @@ import org.apache.pdfbox.util.PDFTextStripper;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
-/**
- * Hello world!
- *
- */
 public class Pdf2ImgUtil 
 {
 	
@@ -51,22 +47,13 @@ public class Pdf2ImgUtil
     	try {
         	is = new BufferedInputStream(new FileInputStream(pdfPath));
         	PDFParser parser = new PDFParser(is);
-        	
-        	 PDFTextStripper stripper=new PDFTextStripper("GBK");
-//        	 par
-        	
+        	PDFTextStripper stripper=new PDFTextStripper("GBK");
         	parser.parse();
         	pdDocument = parser.getPDDocument();
         	List<PDPage> pages = pdDocument.getDocumentCatalog().getAllPages();
-        	
-        	
         	PDPage page = pages.get(0);
         	for (int i = 0; i < pages.size(); i++) {
-//        		String saveFileName = savePath+"\\"+fileName+i+"."+imgType;
         		String saveFileName = savePath+"\\"+fileName;
-//        		PDPage page =  pages.get(i);
-//        		pdfPage2Img(page,saveFileName,imgType);
-        		
         		PDFImageWriter iw = new PDFImageWriter();
             	iw.writeImage(pdDocument, imgType, "", i+1, i+1, saveFileName);
 			}
@@ -93,16 +80,9 @@ public class Pdf2ImgUtil
      */
     public void pdfPage2Img(PDPage page,String saveFileName,String imgType) throws IOException{
     	BufferedImage img_temp  = page.convertToImage();
-//    	Iterator<ImageWriter> it = ImageIO.getImageWritersBySuffix(imgType);
-//    	ImageWriter writer = (ImageWriter) it.next(); 
-//    	ImageOutputStream imageout = ImageIO.createImageOutputStream(new FileOutputStream(saveFileName));
-////    	writer.setOutput(imageout);
-////    	writer.write(new IIOImage(img_temp, null, null));
-    	
-    	
     	FileOutputStream out  = new FileOutputStream(saveFileName);    
-          JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);    
-          encoder.encode(img_temp); 
+        JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);    
+        encoder.encode(img_temp); 
     }
   
     
